@@ -1,0 +1,22 @@
+<div class="container" *ngIf="auth$ | async as auth">
+  <h1 class="display-4">{{ 'common.home' | translate }}</h1>
+  <div class="row">
+    <div class="col-lg-6">
+      <ng-container *ngIf="auth?.apiKey; else loggedOut">
+        <p>{{ 'common.api_key' | translate }}: {{ getApiKey(auth) }}</p>
+        <button class="btn btn-danger" (click)="forgetAuth()">{{ 'common.forget' | translate }}</button>
+      </ng-container>
+      <ng-template #loggedOut>
+        <div class="form-group" [formGroup]="authForm">
+          <label>{{ 'common.api_key' | translate }}</label>
+          <input class="form-control" formControlName="apiKey"
+            type="password"
+            *ngIf="authForm.get('apiKey') as control"
+            [class.is-invalid]="control.dirty && !control.valid">
+          <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
+        </div>
+        <button class="btn btn-info" (click)="saveAuth()">{{ 'common.save' | translate }}</button>
+      </ng-template>
+    </div>
+  </div>
+</div>

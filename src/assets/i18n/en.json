@@ -1,0 +1,21 @@
+{
+  "common": {
+    "app_name": "MG<br>serverless",
+    "home": "Home",
+    "send": "Send",
+    "required": "Required",
+    "forget": "Forget",
+    "save": "Save",
+    "api_key": "Private API Key",
+    "footer_text": "<i class=\"fas fa-copyright\"></i> ergėbė factory, 2018"
+  },
+  "message": {
+    "new": "New Message",
+    "domain": "Domain",
+    "from": "From",
+    "to": "To",
+    "subject": "Subject",
+    "text": "Message",
+    "send": "Send"
+  }
+}

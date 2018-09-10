@@ -1,0 +1,8 @@
+{
+  "/v3/*": {
+    "target": "https://api.mailgun.net",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

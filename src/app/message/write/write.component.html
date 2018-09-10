@@ -1,0 +1,53 @@
+<div class="container">
+  <h1 class="display-4">{{ 'message.new' | translate }}</h1>
+  <div class="row">
+    <div class="col-lg-6">
+      <form [formGroup]="form" class="form">
+        <div class="alert alert-danger alert-dismissible" *ngIf="error">
+          {{ (error?.error || error?.message || error) | json }}
+          <button type="button" class="close" (click)="error = null" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="form-group">
+          <label>{{ 'message.domain' | translate }}</label>
+          <input class="form-control" formControlName="domain"
+            *ngIf="form.get('domain') as control"
+            [class.is-invalid]="control.dirty && !control.valid">
+          <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
+        </div>
+        <div class="form-group">
+          <label>{{ 'message.from' | translate }}</label>
+          <input class="form-control" formControlName="from"
+            *ngIf="form.get('from') as control"
+            [class.is-invalid]="control.dirty && !control.valid">
+          <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
+        </div>
+        <div class="form-group">
+          <label>{{ 'message.to' | translate }}</label>
+          <input class="form-control" formControlName="to"
+            *ngIf="form.get('to') as control"
+            [class.is-invalid]="control.dirty && !control.valid">
+          <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
+        </div>
+        <div class="form-group">
+          <label>{{ 'message.subject' | translate }}</label>
+          <input class="form-control" formControlName="subject"
+            *ngIf="form.get('subject') as control"
+            [class.is-invalid]="control.dirty && !control.valid">
+          <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
+        </div>
+        <div class="form-group">
+          <label>{{ 'message.text' | translate }}</label>
+          <textarea class="form-control"
+            formControlName="text"
+            *ngIf="form.get('text') as control"
+            [class.is-invalid]="control.dirty && !control.valid"></textarea>
+          <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
+        </div>
+        <button type="button" (click)="send()" class="btn btn-success"
+          [disabled]="loading">{{ 'message.send' | translate }}</button>
+      </form>
+    </div>
+  </div>
+</div>
