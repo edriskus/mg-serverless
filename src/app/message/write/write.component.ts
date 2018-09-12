@@ -4,7 +4,8 @@ import { DataService } from '../../data.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UpdateDefaultsAction } from '../../core/reducers/defaults.store';
-import { first } from 'rxjs/operators';
+import { UpdateDraftAction, ResetDraftAction } from '../../core/reducers/draft.store';
+import { first, mergeMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-write',
@@ -27,10 +28,25 @@ export class WriteComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.store.select('defaults').pipe(
-      first()
+      first(),
+      mergeMap(
+        defaults => {
+          return this.store.select('draft').pipe(
+            first(),
+            map(draft => {
+              return {
+                ...defaults,
+                ...draft
+              }
+            })
+          )
+        }
+      )
     ).subscribe(
-      defaults => this.form.patchValue(defaults)
-    )
+      defaults => {
+        this.form.patchValue(defaults)
+      }
+    );
   }
 
   private buildForm(): void {
@@ -40,6 +56,9 @@ export class WriteComponent implements OnInit {
       to: [null, Validators.required],
       subject: [null, Validators.required],
       text: [null, Validators.required]
+    });
+    this.form.valueChanges.subscribe(changes => {
+      this.setDraft(changes);
     })
   }
 
@@ -58,6 +77,7 @@ export class WriteComponent implements OnInit {
       data
     ).subscribe(
       res => {
+        this.resetDraft();
         this.loading = false;
         this.router.navigate(['/']);
       },
@@ -67,6 +87,17 @@ export class WriteComponent implements OnInit {
         this.loading = false;
       }
     )
+  }
+
+  public resetDraft(): void {
+    this.form.get('to').reset();
+    this.form.get('subject').reset();
+    this.form.get('text').reset();
+    this.store.dispatch(new ResetDraftAction());
+  }
+
+  public setDraft(value): void {
+    this.store.dispatch(new UpdateDraftAction(value))
   }
 
   public setDefaults(): void {

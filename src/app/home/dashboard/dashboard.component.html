@@ -3,8 +3,11 @@
   <div class="row">
     <div class="col-lg-6">
       <ng-container *ngIf="auth?.apiKey; else loggedOut">
-        <p>{{ 'common.api_key' | translate }}: {{ getApiKey(auth) }}</p>
+        <p class="mb-0">{{ 'common.api_key' | translate }}: {{ getApiKey(auth) }}</p>
+        <p>{{ 'common.domain' | translate }}: {{ auth.domain }}</p>
         <button class="btn btn-danger" (click)="forgetAuth()">{{ 'common.forget' | translate }}</button>
+        <hr>
+        <app-events [events]="events$ | async"></app-events>
       </ng-container>
       <ng-template #loggedOut>
         <div class="form-group" [formGroup]="authForm">
@@ -12,6 +15,13 @@
           <input class="form-control" formControlName="apiKey"
             type="password"
             *ngIf="authForm.get('apiKey') as control"
+            [class.is-invalid]="control.dirty && !control.valid">
+          <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
+        </div>
+        <div class="form-group" [formGroup]="authForm">
+          <label>{{ 'common.domain' | translate }}</label>
+          <input class="form-control" formControlName="domain"
+            *ngIf="authForm.get('domain') as control"
             [class.is-invalid]="control.dirty && !control.valid">
           <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
         </div>

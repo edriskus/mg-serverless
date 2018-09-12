@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-export const UPDATE = 'UPDATE';
-export const RESET = 'RESET';
+export const UPDATE = 'DEFAULTS_UPDATE';
+export const RESET = 'DEFAULTS_RESET';
 
 export class DefaultsState {
 

@@ -5,7 +5,8 @@ export const LOGOUT = 'LOGOUT';
 
 export class AuthState {
   constructor(
-    public apiKey?: string
+    public apiKey?: string,
+    public domain?: string
   ) {}
 }
 

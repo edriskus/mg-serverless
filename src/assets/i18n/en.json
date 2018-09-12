@@ -7,6 +7,7 @@
     "forget": "Forget",
     "save": "Save",
     "api_key": "Private API Key",
+    "domain": "Domain",
     "footer_text": "<i class=\"fas fa-copyright\"></i> ergėbė factory, 2018"
   },
   "message": {
@@ -16,6 +17,7 @@
     "to": "To",
     "subject": "Subject",
     "text": "Message",
-    "send": "Send"
+    "send": "Send",
+    "reset": "Reset"
   }
 }

@@ -1,0 +1,8 @@
+<div *ngIf="events">
+  <div class="event row mb-2 mb-md-0" *ngFor="let event of events.items">
+    <small class="col-6 col-md-3 event-time">{{ (event.timestamp * 1000) | date:'medium' }}</small>
+    <span class="col-6 col-md-3 event-title">{{ event.event }}<small class="ml-2">to</small></span>
+    <span class="col-12 col-md-6 event-recipient">{{ event.recipient }}</span>
+    <span class="col-12 d-md-none"><hr></span>
+  </div>
+</div>

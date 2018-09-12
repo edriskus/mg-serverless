@@ -5,6 +5,7 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { authReducer } from './reducers/auth.store';
 import { defaultsReducer } from './reducers/defaults.store';
+import { draftReducer } from './reducers/draft.store';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -15,7 +16,7 @@ const reducers: ActionReducerMap<any> = { authReducer, defaultsReducer };
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['auth', 'defaults'],
+    keys: ['auth', 'defaults', 'draft'],
     rehydrate: true
   })(reducer);
 }
@@ -29,7 +30,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     RouterModule,
     StoreModule.forRoot({
       auth: authReducer,
-      defaults: defaultsReducer
+      defaults: defaultsReducer,
+      draft: draftReducer
     }, { metaReducers })
   ],
   declarations: [HeaderComponent, FooterComponent],

@@ -45,8 +45,12 @@
             [class.is-invalid]="control.dirty && !control.valid"></textarea>
           <div class="invalid-feedback">{{ 'common.required' | translate }}</div>
         </div>
-        <button type="button" (click)="send()" class="btn btn-success"
-          [disabled]="loading">{{ 'message.send' | translate }}</button>
+        <div class="button-group d-flex justify-content-between">
+          <button type="button" (click)="send()" class="btn btn-success"
+            [disabled]="loading">{{ 'message.send' | translate }}</button>
+          <button type="button" (click)="resetDraft()" class="btn btn-outline-danger">
+            {{ 'message.reset' | translate }}</button>
+        </div>
       </form>
     </div>
   </div>
